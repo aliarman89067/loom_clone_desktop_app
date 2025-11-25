@@ -34,10 +34,10 @@ export const Widget = () => {
 
   const { user } = useUser();
   const { state, fetchMediaResources } = useMediaSources();
-  console.log(state);
 
   useEffect(() => {
     if (user && user.id) {
+      fetchMediaResources();
       fetchUserProfile(user.id).then((p) => setProfile(p));
     }
   }, [user]);

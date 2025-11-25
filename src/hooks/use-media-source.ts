@@ -49,7 +49,7 @@ export const useMediaSources = () => {
         isPending: true,
       },
     });
-    getMediaSources().then((sources) =>
+    getMediaSources().then((sources) => {
       action({
         type: "GET_DEVICES",
         payload: {
@@ -57,8 +57,8 @@ export const useMediaSources = () => {
           audioInputs: sources.audio,
           isPending: false,
         },
-      })
-    );
+      });
+    });
   };
 
   return { state, fetchMediaResources };

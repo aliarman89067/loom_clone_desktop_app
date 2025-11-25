@@ -34,3 +34,49 @@ export const getMediaSources = async () => {
   console.log("getting sources");
   return { displays, audio: audioInputs };
 };
+
+export const updateStudioSettings = async ({
+  audio,
+  id,
+  preset,
+  screen,
+}: {
+  id: string;
+  screen: string;
+  audio: string;
+  preset: "HD" | "SD";
+}) => {
+  const response = await httpClient.post(
+    `/studio/${id}`,
+    {
+      screen,
+      audio,
+      preset,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return response.data;
+};
+
+export const hidePluginWindow = (state: boolean) => {
+  window.ipcRenderer.send("hide-plugin", { state });
+};
+
+export const videoRecordingTime = (ms: number) => {
+  const second = Math.floor((ms / 1000) % 60)
+    .toString()
+    .padStart(2, "0");
+  const minute = Math.floor((ms / 1000 / 60) % 60)
+    .toString()
+    .padStart(2, "0");
+  const hour = Math.floor(ms / 1000 / 60 / 60)
+    .toString()
+    .padStart(2, "0");
+
+  return { length: `${hour}:${minute}:${second}`, minute };
+};
