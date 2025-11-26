@@ -21,8 +21,7 @@ const StudioTray = () => {
     | undefined
   >(undefined);
 
-  window.ipcRenderer.on("profile-recieved", (event, payload) => {
-    alert(JSON.stringify(payload));
+  window.ipcRenderer.on("profile-recieved", (_, payload) => {
     setOnSources(payload);
   });
 

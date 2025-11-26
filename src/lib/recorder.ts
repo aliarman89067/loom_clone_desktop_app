@@ -23,9 +23,19 @@ export const startRecording = (onSources: {
   mediaRecorder.start(1000);
 };
 
-export const onStopRecording = () => mediaRecorder?.stop();
+export const onStopRecording = () => {
+  if (!mediaRecorder) {
+    alert("Media recorder in undefined");
+    throw new Error("MediaRecorder was not initialized");
+  } else {
+    alert("Media recorder in exist");
+  }
+
+  mediaRecorder.stop();
+};
 
 const stopRecording = () => {
+  // alert("Recording Stopped");
   hidePluginWindow(false);
   socket.emit("process-video", {
     filename: videoTransferFileName,
@@ -34,7 +44,6 @@ const stopRecording = () => {
 };
 
 export const onDataAvailable = (e: BlobEvent) => {
-  alert(JSON.stringify(e.data));
   socket.emit("video-chunks", {
     chunks: e.data,
     filename: videoTransferFileName,

@@ -93,6 +93,9 @@ function createWindow() {
   studio.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
   studio.setAlwaysOnTop(true, "screen-saver", 1);
 
+  floatingWebCam.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+  floatingWebCam.setAlwaysOnTop(true, "screen-saver", 1);
+
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
